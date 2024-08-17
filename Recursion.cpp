@@ -10,12 +10,14 @@ int print1(int n);
 int print2(int n);
 int fibonacciSeries(int n);
 void sayNumber(int n);
-
+bool isSorted(int arr[], int size);
+bool linearSearch(int arr[], int size, int key);
+bool binarySearch(int arr[], int s, int e,int key);
 int main() {
-
+	int arr[10] = {1,4,7,9,12,15,17,19,23,23 };
 	int n, p;
-	cout << "Enter a number: ";
-	cin >> n;
+	/*cout << "Enter a number: ";
+	cin >> n;*/
 	//cout << "Enter the power: ";
 	//cin >> p;
 	//cout << "Factorial of " << n << " is " << factorial(n) << endl;
@@ -29,7 +31,13 @@ int main() {
 	//for (int i = 0; i < n; i++) {
 	//	cout << fibonacciSeries(i) << " ";
 	//}
-	sayNumber(n);
+	//sayNumber(n);
+	//cout << (isSorted(arr, 6) ? "Array is sorted" : "Array is not sorted") << endl;
+	//cout << (linearSearch(arr, 6, 8) ? "Element found" : "Element is not found") << endl;
+	//cout << (binarySearch(arr,0,9, 23) ? "Element found" : "Element is not found") << endl;
+
+
+
 	return 0;
 }
 
@@ -90,4 +98,51 @@ void sayNumber(int n) {
 	n = n / 10;
 	sayNumber(n);
 	cout << num[digit] << " ";
+}
+
+bool isSorted(int arr[], int size) {
+	if (size <= 1) {
+		return true;
+	}
+	if (arr[0] <= arr[1]) {
+		bool ans=isSorted(arr+1, size - 1);
+		return ans;
+	}
+	else {
+		return false;
+	}
+
+}
+
+bool linearSearch(int arr[], int size,int key) {
+	if (size == 0) {
+		return false;
+	}
+	if (arr[0] == key) {
+		return true;
+	}
+	else
+	{
+		return linearSearch(arr + 1, size - 1, key);
+	}
+}
+
+
+bool binarySearch(int arr[], int s,int e,int key) {
+	if (s > e) {
+		return false;
+	}
+	int mid = s + ((e - s) / 2);
+	if (arr[mid]==key)
+	{
+		return true;
+	}
+	else if (arr[mid]>key)
+	{
+		return binarySearch(arr, s, mid - 1, key);
+	}
+	else
+	{
+		return	binarySearch(arr, mid + 1, e, key);
+	}
 }
